@@ -46,8 +46,8 @@ public class Chapter_3 {
 
     static private double average(Measurable[] objects) {
         double sum=0;
-        for(int i=0;i<objects.length;i++)
-            sum+=objects[i].getMeasure();
+        for(Measurable i:objects)
+            sum+=i.getMeasure();
         return sum/objects.length;
     }
 
