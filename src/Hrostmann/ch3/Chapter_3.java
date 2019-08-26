@@ -3,8 +3,14 @@ package Hrostmann.ch3;
 import Hrostmann.ch3.Ex_from_1_to_2.*;
 import Hrostmann.ch3.Ex_from_4_to_6.*;
 
+/**
+ *Base class to check all classes one by one
+ * @author Konstantin
+ * @version 1.0
+ */
 public class Chapter_3 {
     public static void main(String[] args) {
+        //Ex.1
         Measurable[] measurables = new Measurable[3];
         measurables[0] = Hrostmann.ch3.Ex_from_1_to_2.Employee.hireEmployee("Fred",55.6);
         measurables[1] = Hrostmann.ch3.Ex_from_1_to_2.Employee.hireEmployee("John",100);
@@ -13,6 +19,7 @@ public class Chapter_3 {
         Employee large = (Employee) largest(measurables);
         System.out.println(large.getName());
 
+        //Ex.2
         measurables[0] = Hrostmann.ch3.Ex_from_1_to_2.Book.writeBook("Fred's journey",400);
         measurables[1] = Hrostmann.ch3.Ex_from_1_to_2.Book.writeBook("John's textbook",234);
         measurables[2] = Hrostmann.ch3.Ex_from_1_to_2.Book.writeBook("Emy's journey",347);
@@ -20,6 +27,7 @@ public class Chapter_3 {
         Book large2 = (Book) largest(measurables);
         System.out.println(large2.getName());
 
+        //Ex.4`
         IntSequence seq = IntSequence.of(1,1,1,12,3,4,5);
         while (seq.hasNext())
             System.out.println(seq.next());
@@ -30,10 +38,12 @@ public class Chapter_3 {
         for(int i=0;i<10;i++)
             System.out.println(seq.next());
 
+        //Ex.5
         seq = IntSequence.constant(73);
         for(int i=0;i<10;i++)
             System.out.println(seq.next());
 
+        //Ex.6
         Sequence seq2 = new SquareSequence();
         for(int i=0;i<3;i++)
             System.out.println(seq2.next().toString());
