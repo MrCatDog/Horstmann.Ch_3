@@ -1,23 +1,23 @@
 package Hrostmann.ch3;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import Hrostmann.ch3.Ex_from_1_to_2.*;
+import Hrostmann.ch3.Ex_from_4_to_6.*;
 
 public class Chapter_3 {
     public static void main(String[] args) {
-        Measurable[] govno = new Measurable[3];
-        govno[0] = new Employee("Fred",55.6);
-        govno[1] = new Employee("John",100);
-        govno[2] = new Employee("Emy",110);
-        System.out.println(average(govno));
-        Employee large = (Employee) largest(govno);
+        Measurable[] measurables = new Measurable[3];
+        measurables[0] = Hrostmann.ch3.Ex_from_1_to_2.Employee.hireEmployee("Fred",55.6);
+        measurables[1] = Hrostmann.ch3.Ex_from_1_to_2.Employee.hireEmployee("John",100);
+        measurables[2] = Hrostmann.ch3.Ex_from_1_to_2.Employee.hireEmployee("Emy",110);
+        System.out.println(average(measurables));
+        Employee large = (Employee) largest(measurables);
         System.out.println(large.getName());
 
-        govno[0] = new Book("Fred's journey",400);
-        govno[1] = new Book("John's textbook",234);
-        govno[2] = new Book("Emy's journey",347);
-        System.out.println(average(govno));
-        Book large2 = (Book) largest(govno);
+        measurables[0] = Hrostmann.ch3.Ex_from_1_to_2.Book.writeBook("Fred's journey",400);
+        measurables[1] = Hrostmann.ch3.Ex_from_1_to_2.Book.writeBook("John's textbook",234);
+        measurables[2] = Hrostmann.ch3.Ex_from_1_to_2.Book.writeBook("Emy's journey",347);
+        System.out.println(average(measurables));
+        Book large2 = (Book) largest(measurables);
         System.out.println(large2.getName());
 
         IntSequence seq = IntSequence.of(1,1,1,12,3,4,5);
