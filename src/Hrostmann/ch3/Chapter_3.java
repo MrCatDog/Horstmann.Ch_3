@@ -1,7 +1,10 @@
 package Hrostmann.ch3;
 
+import Hrostmann.ch3.Ex_8.*;
 import Hrostmann.ch3.Ex_from_1_to_2.*;
 import Hrostmann.ch3.Ex_from_4_to_6.*;
+
+import java.util.ArrayList;
 
 /**
  *Base class to check all classes one by one
@@ -51,6 +54,26 @@ public class Chapter_3 {
         seq2 = new DoubleSquareSequence();
         for(int i=0;i<3;i++)
             System.out.println(seq2.next());
+
+        //Ex.8
+        ArrayList<String> list = new ArrayList<>();
+        list.add("once");
+        list.add("told");
+        list.add("me");
+        list.add("Somebody");
+
+        java.util.Comparator<String> comp = new LengthComparator();
+        ArrayListSort.luckySort(list,comp);
+        System.out.println(list);
+
+        java.util.Comparator<Integer> comp2 = new LengthComparatorForInt();
+        ArrayList<Integer> list2 = new ArrayList<>();
+        list2.add(12);
+        list2.add(68);
+        list2.add(1);
+        list2.add(145);
+        ArrayListSort.luckySort(list2,comp2);
+        System.out.println(list2);
 
     }
 
