@@ -30,37 +30,39 @@ public class Chapter_3 {
         ex11_12();
         System.out.println("\nEx.13");
         ex13();
+        System.out.println("\nEx.14");
+        ex14(Chapter_3::ex1_2,System.out::println,Chapter_3::ex8).run();
     }
 
     static private double average(Measurable[] objects) {
-        double sum=0;
-        for(Measurable i:objects)
-            sum+=i.getMeasure();
-        return sum/objects.length;
+        double sum = 0;
+        for (Measurable i : objects)
+            sum += i.getMeasure();
+        return sum / objects.length;
     }
 
     static private Measurable largest(Measurable[] objects) {
-        int largest=0;
-        for(int i=1;i<objects.length;i++)
-            if(objects[i].getMeasure()>objects[largest].getMeasure())
-                largest=i;
+        int largest = 0;
+        for (int i = 1; i < objects.length; i++)
+            if (objects[i].getMeasure() > objects[largest].getMeasure())
+                largest = i;
         return objects[largest];
     }
 
     static private void ex1_2() {
         //Ex.1
         Measurable[] measurables = new Measurable[3];
-        measurables[0] = Hrostmann.ch3.Ex_from_1_to_2.Employee.hireEmployee("Fred",55.6);
-        measurables[1] = Hrostmann.ch3.Ex_from_1_to_2.Employee.hireEmployee("John",100);
-        measurables[2] = Hrostmann.ch3.Ex_from_1_to_2.Employee.hireEmployee("Emy",110);
+        measurables[0] = Hrostmann.ch3.Ex_from_1_to_2.Employee.hireEmployee("Fred", 55.6);
+        measurables[1] = Hrostmann.ch3.Ex_from_1_to_2.Employee.hireEmployee("John", 100);
+        measurables[2] = Hrostmann.ch3.Ex_from_1_to_2.Employee.hireEmployee("Emy", 110);
         System.out.println(average(measurables));
         Employee large = (Employee) largest(measurables);
         System.out.println(large.getName());
 
         //Ex.2
-        measurables[0] = Hrostmann.ch3.Ex_from_1_to_2.Book.writeBook("Fred's journey",400);
-        measurables[1] = Hrostmann.ch3.Ex_from_1_to_2.Book.writeBook("John's textbook",234);
-        measurables[2] = Hrostmann.ch3.Ex_from_1_to_2.Book.writeBook("Emy's journey",347);
+        measurables[0] = Hrostmann.ch3.Ex_from_1_to_2.Book.writeBook("Fred's journey", 400);
+        measurables[1] = Hrostmann.ch3.Ex_from_1_to_2.Book.writeBook("John's textbook", 234);
+        measurables[2] = Hrostmann.ch3.Ex_from_1_to_2.Book.writeBook("Emy's journey", 347);
         System.out.println(average(measurables));
         Book large2 = (Book) largest(measurables);
         System.out.println(large2.getName());
@@ -118,15 +120,17 @@ public class Chapter_3 {
     }
 
     static private void ex9_10() {
-        Greeter first = Greeter.greetMe("First",7);
-        Greeter second = Greeter.greetMe("Second",5);
-        Runnable together = new RunTogether(first,second);
-        Runnable inOrder = new RunInOrder(first,second);
-        Thread th = new Thread(new RunInOrder(together,inOrder));
+        Greeter first = Greeter.greetMe("First", 7);
+        Greeter second = Greeter.greetMe("Second", 5);
+        Runnable together = new RunTogether(first, second);
+        Runnable inOrder = new RunInOrder(first, second);
+        Thread th = new Thread(new RunInOrder(together, inOrder));
         th.start();
         try {
-        th.join(); }
-        catch(Exception e) {System.out.println(e.toString());}
+            th.join();
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
     }
 
     static private void ex11_12() {
@@ -137,12 +141,14 @@ public class Chapter_3 {
             for (File i : files)
                 System.out.println(i);
 
-            String[] files2 = dir.list( (File f, String name) -> name.endsWith(".pdf") );
+            String[] files2 = dir.list((File f, String name) -> name.endsWith(".pdf"));
 
             for (String i : files2)
                 System.out.println(i);
 
-        } catch (Exception e) {System.out.println(e.toString());}
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
     }
 
     static private void ex13() {
@@ -163,8 +169,8 @@ public class Chapter_3 {
             ArrayList<File> dirs = new ArrayList<>();
             ArrayList<File> obj = new ArrayList<>();
 
-            for(File i:files)
-                if(i.isDirectory())
+            for (File i : files)
+                if (i.isDirectory())
                     dirs.add(i);
                 else
                     obj.add(i);
@@ -181,6 +187,17 @@ public class Chapter_3 {
             for (File i : dirs)
                 System.out.println(i);
 
-        } catch (Exception e) {System.out.println("Ошибка при работе с файлом в задании 13:\n" + e.toString());}
+        } catch (Exception e) {
+            System.out.println("Ошибка при работе с файлом или потоком в задании 13:\n" + e.toString());
+        }
     }
+
+    static private Runnable ex14(Runnable... tasks) {
+        return () -> {
+            for (Runnable i : tasks) {
+                i.run();
+            }
+        };
+    }
+
 }
