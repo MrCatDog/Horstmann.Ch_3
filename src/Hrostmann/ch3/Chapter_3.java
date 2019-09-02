@@ -7,6 +7,7 @@ import Hrostmann.ch3.Ex_from_9_to_10.*;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 
 /**
@@ -32,6 +33,8 @@ public class Chapter_3 {
         ex13();
         System.out.println("\nEx.14");
         ex14(Chapter_3::ex1_2,System.out::println,Chapter_3::ex8).run();
+        System.out.println("\nEx.15");
+        ex15();
     }
 
     static private double average(Measurable[] objects) {
@@ -198,6 +201,25 @@ public class Chapter_3 {
                 i.run();
             }
         };
+    }
+
+    static private void ex15() {
+        Employee[] workesBees = {
+                Employee.hireEmployee("First",45),
+                Employee.hireEmployee("Legion",45),
+                Employee.hireEmployee("Linda",45.5),
+                Employee.hireEmployee("Shrek", 0),
+                Employee.hireEmployee("RoboCop", 999.99),
+                Employee.hireEmployee("Linda",65.7)
+        };
+        Arrays.sort(workesBees,Comparator.comparing(Employee::getMeasure).reversed().thenComparing(Employee::getName));
+        for(Employee i:workesBees)
+            System.out.println(i.getName()+" "+i.getMeasure());
+        System.out.println();
+
+        Arrays.sort(workesBees,Comparator.comparing(Employee::getName).thenComparing(Employee::getMeasure).reversed());
+        for(Employee i:workesBees)
+            System.out.println(i.getName()+" "+i.getMeasure());
     }
 
 }
