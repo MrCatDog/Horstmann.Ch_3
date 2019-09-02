@@ -5,7 +5,9 @@ import Hrostmann.ch3.Ex_from_1_to_2.*;
 import Hrostmann.ch3.Ex_from_4_to_6.*;
 import Hrostmann.ch3.Ex_from_9_to_10.*;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  *Base class to check all classes one by one
@@ -14,11 +16,20 @@ import java.util.ArrayList;
  */
 public class Chapter_3 {
     public static void main(String[] args) {
+        System.out.println("\nEx.1-2");
         ex1_2();
+        System.out.println("\nEx.4-5");
         ex4_5();
+        System.out.println("\nEx.6");
         ex6();
+        System.out.println("\nEx.8");
         ex8();
+        System.out.println("\nEx.9-10");
         ex9_10();
+        System.out.println("\nEx.11-12");
+        ex11_12();
+        System.out.println("\nEx.13");
+        ex13();
     }
 
     static private double average(Measurable[] objects) {
@@ -111,6 +122,65 @@ public class Chapter_3 {
         Greeter second = Greeter.greetMe("Second",5);
         Runnable together = new RunTogether(first,second);
         Runnable inOrder = new RunInOrder(first,second);
-        new Thread(new RunInOrder(together,inOrder)).start();
+        Thread th = new Thread(new RunInOrder(together,inOrder));
+        th.start();
+        try {
+        th.join(); }
+        catch(Exception e) {System.out.println(e.toString());}
+    }
+
+    static private void ex11_12() {
+        try {
+            File dir = new File("D:/Fallout 2");
+            File[] files = dir.listFiles(File::isDirectory);
+
+            for (File i : files)
+                System.out.println(i);
+
+            String[] files2 = dir.list( (File f, String name) -> name.endsWith(".pdf") );
+
+            for (String i : files2)
+                System.out.println(i);
+
+        } catch (Exception e) {System.out.println(e.toString());}
+    }
+
+    static private void ex13() {
+        try {
+            File[] files = {new File("D://Fallout 2"),
+                    new File("D://Fallout 2/armor.ini"),
+                    new File("D://Fallout 2/f2_res.dll"),
+                    new File("D:/Fallout 2/DATA"),
+                    new File("D://Git"),
+                    new File("C://Program Files"),
+                    new File("C:/Новая папка"),
+                    new File("C:\\Program Files\\Java\\jdk-10.0.1"),
+                    new File("C:\\Program Files\\Java\\jdk-10.0.1\\README.html"),
+                    new File("C://error.notExist"),
+                    new File("C:/FakeDir")
+            };
+
+            ArrayList<File> dirs = new ArrayList<>();
+            ArrayList<File> obj = new ArrayList<>();
+
+            for(File i:files)
+                if(i.isDirectory())
+                    dirs.add(i);
+                else
+                    obj.add(i);
+
+            Thread th1 = new Thread(() -> dirs.sort(Comparator.comparing(File::getAbsolutePath)));
+            th1.start();
+            Thread th2 = new Thread(() -> obj.sort(Comparator.comparing(File::getAbsoluteFile)));
+            th2.start();
+            th1.join();
+            th2.join();
+
+            dirs.addAll(obj);
+
+            for (File i : dirs)
+                System.out.println(i);
+
+        } catch (Exception e) {System.out.println("Ошибка при работе с файлом в задании 13:\n" + e.toString());}
     }
 }

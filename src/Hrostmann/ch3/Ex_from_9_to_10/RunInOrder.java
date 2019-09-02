@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class RunInOrder implements Runnable {
-    private ArrayList<Runnable> tasks;
+    private ArrayList<Runnable> tasks = new ArrayList<>();
 
     public void run() {
         try {
