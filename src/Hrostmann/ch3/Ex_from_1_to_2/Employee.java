@@ -2,8 +2,8 @@ package Hrostmann.ch3.Ex_from_1_to_2;
 
 public class Employee implements Measurable {
 
-    private String name;
-    private double salary;
+    private final String name;
+    private final double salary;
 
     private Employee(String name,double salary) {
         this.name=name;

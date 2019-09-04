@@ -6,8 +6,8 @@ package Hrostmann.ch3.Ex_from_1_to_2;
  * @version 1.0
  */
 public class Book implements Measurable {
-    private String name;
-    private int pages;
+    private final String name;
+    private final int pages;
 
     /**
      * Standart constructor

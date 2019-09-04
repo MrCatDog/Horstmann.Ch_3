@@ -15,7 +15,7 @@ import java.util.Comparator;
  * @author Konstantin
  * @version 1.0
  */
-public class Chapter_3 {
+class Chapter_3 {
     public static void main(String[] args) {
         System.out.println("\nEx.1-2");
         ex1_2();
@@ -37,6 +37,11 @@ public class Chapter_3 {
         ex15();
     }
 
+    /**
+     * Finding average measurable value.
+     * @param objects massive from all measurable objects.
+     * @return average value.
+     */
     static private double average(Measurable[] objects) {
         double sum = 0;
         for (Measurable i : objects)
@@ -44,6 +49,11 @@ public class Chapter_3 {
         return sum / objects.length;
     }
 
+    /**
+     * Finding largest by measurable parameter object from input.
+     * @param objects massive from all measurable objects.
+     * @return largest object from input massive.
+     */
     static private Measurable largest(Measurable[] objects) {
         int largest = 0;
         for (int i = 1; i < objects.length; i++)
@@ -52,6 +62,11 @@ public class Chapter_3 {
         return objects[largest];
     }
 
+    /**
+     * Work with interfaces. Find the average and largest object by measurable parameters.
+     * For <code>Employee</code> measurable parameter it's <code>salary</code>.
+     * For <code>Book</code> measurable parameter it's <code>pages</code>.
+     */
     static private void ex1_2() {
         //Ex.1
         Measurable[] measurables = new Measurable[3];
@@ -71,6 +86,10 @@ public class Chapter_3 {
         System.out.println(large2.getName());
     }
 
+    /**
+     * Making some <code>int</code> sequence.
+     * First strongly defined, second draft randomly from represented numbers, third making constantly from one number.
+     */
     static private void ex4_5() {
         //Ex.4
         IntSequence seq = IntSequence.of(1, 1, 1, 12, 3, 4, 5);
@@ -89,19 +108,24 @@ public class Chapter_3 {
             System.out.println(seq.next());
     }
 
+    /**
+     * Work with some interfaces.
+     * At first make <code>BigInteger</code> sequence, after that <code>Double</code>
+     */
     static private void ex6() {
-        //Ex.6
-        Sequence seq2 = new SquareSequence();
+        Sequence seq = new SquareSequence();
         for (int i = 0; i < 3; i++)
-            System.out.println(seq2.next().toString());
+            System.out.println(seq.next().toString());
 
-        seq2 = new DoubleSquareSequence();
+        seq = new DoubleSquareSequence();
         for (int i = 0; i < 3; i++)
-            System.out.println(seq2.next());
+            System.out.println(seq.next());
     }
 
+    /**
+     * Sort string array by length with using shuffle method and <code>Comparator</code>.
+     */
     static private void ex8() {
-        //Ex.8
         ArrayList<String> list = new ArrayList<>();
         list.add("once");
         list.add("told");
@@ -122,20 +146,26 @@ public class Chapter_3 {
         System.out.println(list2);
     }
 
+    /**
+     * Runs first and second Greeter elements in parallel threads and, after that, one by one.
+     */
     static private void ex9_10() {
         Greeter first = Greeter.greetMe("First", 7);
         Greeter second = Greeter.greetMe("Second", 5);
-        Runnable together = new RunTogether(first, second);
-        Runnable inOrder = new RunInOrder(first, second);
-        Thread th = new Thread(new RunInOrder(together, inOrder));
+        Runnable together = new RunTogether(first, second);//run all greeter together.
+        Runnable inOrder = new RunInOrder(first, second);//run all greeter one by one
+        Thread th = new Thread(new RunInOrder(together, inOrder));//run together first, and then one by one
         th.start();
         try {
-            th.join();
+            th.join();//wait till the end (for not blending it with another Ex)
         } catch (Exception e) {
             System.out.println(e.toString());
         }
     }
 
+    /**
+     * Print all founded folders and files with ".pdf" extension in "D:/Fallout 2".
+     */
     static private void ex11_12() {
         try {
             File dir = new File("D:/Fallout 2");
@@ -154,6 +184,9 @@ public class Chapter_3 {
         }
     }
 
+    /**
+     * Sort and print a list of Files. Folders on top, files on bottom, both sorted by path.
+     */
     static private void ex13() {
         try {
             File[] files = {new File("D://Fallout 2"),
@@ -195,6 +228,11 @@ public class Chapter_3 {
         }
     }
 
+    /**
+     * Run all <code>Runnable</code> objects one by one.
+     * @param tasks <code>Runnable</code> objects for one by one execution.
+     * @return <code>Runnable</code> object implements all tasks one by one.
+     */
     static private Runnable ex14(Runnable... tasks) {
         return () -> {
             for (Runnable i : tasks) {
@@ -203,6 +241,10 @@ public class Chapter_3 {
         };
     }
 
+    /**
+     * Sort massive of <code>Employee</code> by <code>salary</code> and then by <code>name</code>,
+     * after that sorts by <code>name</code> and then by <code>salary</code>.
+     */
     static private void ex15() {
         Employee[] workesBees = {
                 Employee.hireEmployee("First",45),
@@ -212,12 +254,13 @@ public class Chapter_3 {
                 Employee.hireEmployee("RoboCop", 999.99),
                 Employee.hireEmployee("Linda",65.7)
         };
-        Arrays.sort(workesBees,Comparator.comparing(Employee::getMeasure).reversed().thenComparing(Employee::getName));
+        Comparator<Employee> comp = Comparator.comparing(Employee::getMeasure).reversed().thenComparing(Employee::getName);
+        Arrays.sort(workesBees,comp);
         for(Employee i:workesBees)
             System.out.println(i.getName()+" "+i.getMeasure());
         System.out.println();
 
-        Arrays.sort(workesBees,Comparator.comparing(Employee::getName).thenComparing(Employee::getMeasure).reversed());
+        Arrays.sort(workesBees,comp.reversed());
         for(Employee i:workesBees)
             System.out.println(i.getName()+" "+i.getMeasure());
     }

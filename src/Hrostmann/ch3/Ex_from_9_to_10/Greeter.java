@@ -1,8 +1,8 @@
 package Hrostmann.ch3.Ex_from_9_to_10;
 
 public class Greeter implements Runnable {
-    private int count;
-    private String person;
+    private final int count;
+    private final String person;
 
     private Greeter (String person, int count) {
         this.count=count;
